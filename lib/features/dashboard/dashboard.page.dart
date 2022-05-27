@@ -79,28 +79,12 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
                         ],
                       );
                     } else {
-                      return const Center(child: CircularProgressIndicator(color: Colors.amber));
+                      return const SizedBox.shrink();
                     }
                   }),
             )
           ]))
         ],
-        /*child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ScaleTransition(
-                scale: _titleAnimation,
-                alignment: Alignment.topLeft,
-                child: const Text('Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)),
-              ),
-              const SizedBox(height: 20),
-
-            ],
-          ),
-        ),*/
       ),
     );
   }

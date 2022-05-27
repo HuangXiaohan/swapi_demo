@@ -44,10 +44,10 @@ class AppNavigator extends StatelessWidget {
             Animation<double> secondaryAnimation,
             Widget child,
           ) =>
-              SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, -1),
-              end: Offset.zero,
+              FadeTransition(
+            opacity: Tween<double>(
+              begin: 0,
+              end: 1,
             ).animate(animation),
             child: child,
           ),

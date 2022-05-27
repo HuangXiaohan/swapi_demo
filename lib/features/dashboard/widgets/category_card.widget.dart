@@ -14,7 +14,7 @@ class CategoryCard extends StatelessWidget {
       child: Stack(
         children: [
           AspectRatio(
-            aspectRatio: 2 / 1,
+            aspectRatio: 5 / 2,
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.asset(category.getImage(), fit: BoxFit.cover)),
@@ -36,8 +36,12 @@ class CategoryCard extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 10),
                     child: Text(
                       category.key.toUpperCase(),
-                      style: const TextStyle(
-                          fontSize: 28, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic, letterSpacing: 1.5),
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black.withOpacity(0.75),
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          letterSpacing: 1.5),
                     ),
                   ),
                 ),
