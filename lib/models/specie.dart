@@ -11,6 +11,7 @@ class Specie {
   final String hair_colors;
   final String eye_colors;
   final String language;
+  final String url;
 
   Specie(
       {required this.name,
@@ -19,7 +20,8 @@ class Specie {
       required this.skin_colors,
       required this.hair_colors,
       required this.eye_colors,
-      required this.language});
+      required this.language,
+      required this.url});
 
   factory Specie.fromJson(Map<String, dynamic> json) => _$SpecieFromJson(json);
 

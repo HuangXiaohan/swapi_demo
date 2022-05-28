@@ -12,7 +12,7 @@ class People {
   final String eye_color;
   final String birth_year;
   final String gender;
-  final String homeworld;
+  final String url;
 
   People(
       {required this.name,
@@ -23,7 +23,7 @@ class People {
       required this.eye_color,
       required this.birth_year,
       required this.gender,
-      required this.homeworld});
+      required this.url});
 
   factory People.fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
 

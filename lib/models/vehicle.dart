@@ -10,6 +10,7 @@ class Vehicle {
   final String passengers;
   final String consumables;
   final String vehicle_class;
+  final String url;
 
   Vehicle(
       {required this.name,
@@ -17,7 +18,8 @@ class Vehicle {
       required this.manufacturer,
       required this.passengers,
       required this.consumables,
-      required this.vehicle_class});
+      required this.vehicle_class,
+      required this.url});
 
   factory Vehicle.fromJson(Map<String, dynamic> json) => _$VehicleFromJson(json);
 

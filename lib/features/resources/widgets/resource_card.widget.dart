@@ -12,45 +12,44 @@ class ResourceCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        gradient: LinearGradient(
+                            colors: [color, color.withOpacity(0.1)],
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight)),
+                    child: _buildTitle()),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Text(name,
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+                ),
+                InkWell(child: const Icon(Icons.favorite_outline_outlined, color: Colors.grey, size: 32), onTap: () {})
+              ],
+            ),
+            const SizedBox(height: 20),
+            ...elements.map((e) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              gradient: LinearGradient(
-                                  colors: [color, color.withOpacity(0.1)],
-                                  begin: Alignment.bottomLeft,
-                                  end: Alignment.topRight)),
-                          child: _buildTitle()),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(name,
-                          style:
-                              const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+                      Text(e.title),
+                      Flexible(child: Text(e.content, style: const TextStyle(fontStyle: FontStyle.italic)))
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  ...elements.map((e) => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text(e.title), Flexible(child: Text(e.content))],
-                      ))
-                ],
-              ),
-            ),
-            const SizedBox(width: 40),
-            InkWell(child: const Icon(Icons.favorite_outline_outlined, color: Colors.grey, size: 32), onTap: () {})
+                ))
           ],
         ),
       ),

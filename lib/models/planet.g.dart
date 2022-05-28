@@ -15,6 +15,7 @@ Planet _$PlanetFromJson(Map<String, dynamic> json) => Planet(
       terrain: json['terrain'] as String,
       surface_water: json['surface_water'] as String,
       population: json['population'] as String,
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$PlanetToJson(Planet instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$PlanetToJson(Planet instance) => <String, dynamic>{
       'terrain': instance.terrain,
       'surface_water': instance.surface_water,
       'population': instance.population,
+      'url': instance.url,
     };

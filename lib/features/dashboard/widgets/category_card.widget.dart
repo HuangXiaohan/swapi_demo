@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapi_demo/features/resources/people_resource.page.dart';
-import 'package:swapi_demo/features/resources/planets_resource.page.dart';
+import 'package:swapi_demo/features/resources/resource_list.page.dart';
 import 'package:swapi_demo/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -56,14 +55,6 @@ class CategoryCard extends StatelessWidget {
   }
 
   void onTap(BuildContext context) {
-    switch (category.key) {
-      case 'people':
-        Navigator.of(context).pushNamed(PeopleResourcePage.routeName, arguments: category);
-        break;
-      case 'planets':
-        Navigator.of(context).pushNamed(PlanetsResourcePage.routeName, arguments: category);
-        break;
-    }
-    ;
+    Navigator.of(context).pushNamed(ResourceListPage.routeName, arguments: category);
   }
 }

@@ -12,6 +12,7 @@ class Planet {
   final String terrain;
   final String surface_water;
   final String population;
+  final String url;
 
   Planet(
       {required this.name,
@@ -21,7 +22,8 @@ class Planet {
       required this.gravity,
       required this.terrain,
       required this.surface_water,
-      required this.population});
+      required this.population,
+      required this.url});
 
   factory Planet.fromJson(Map<String, dynamic> json) => _$PlanetFromJson(json);
 

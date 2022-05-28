@@ -15,7 +15,7 @@ People _$PeopleFromJson(Map<String, dynamic> json) => People(
       eye_color: json['eye_color'] as String,
       birth_year: json['birth_year'] as String,
       gender: json['gender'] as String,
-      homeworld: json['homeworld'] as String,
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$PeopleToJson(People instance) => <String, dynamic>{
@@ -27,5 +27,5 @@ Map<String, dynamic> _$PeopleToJson(People instance) => <String, dynamic>{
       'eye_color': instance.eye_color,
       'birth_year': instance.birth_year,
       'gender': instance.gender,
-      'homeworld': instance.homeworld,
+      'url': instance.url,
     };

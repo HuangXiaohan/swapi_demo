@@ -11,6 +11,7 @@ class FilmService {
         if (response.statusCode == 200) {
           final List<dynamic> list = response.data['results'];
           final List<Film> filmList = list.map((value) => Film.fromJson(value)).toList();
+          var f = filmList;
           return filmList;
         } else {
           throw ('Cannot get film list');

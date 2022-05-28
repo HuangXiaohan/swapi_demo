@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:swapi_demo/features/resources/people_resource.page.dart';
-import 'package:swapi_demo/features/resources/planets_resource.page.dart';
+import 'package:swapi_demo/features/resources/resource_list.page.dart';
 import 'package:swapi_demo/features/welcome.page.dart';
 import 'package:swapi_demo/models/category.dart';
 
@@ -26,11 +25,8 @@ class AppNavigator extends StatelessWidget {
             case DashboardPage.routeName:
               page = const DashboardPage();
               break;
-            case PeopleResourcePage.routeName:
-              page = PeopleResourcePage(category: settings.arguments as Category);
-              break;
-            case PlanetsResourcePage.routeName:
-              page = PlanetsResourcePage(category: settings.arguments as Category);
+            case ResourceListPage.routeName:
+              page = ResourceListPage(category: settings.arguments as Category);
               break;
             default:
               logger.e('Invalid route in navigator: ${settings.name ?? ''}');

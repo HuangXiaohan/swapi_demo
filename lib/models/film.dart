@@ -5,11 +5,12 @@ part 'film.g.dart';
 @JsonSerializable()
 class Film {
   final String title;
-  final String episode_id;
+  final int episode_id;
   final String opening_crawl;
   final String director;
   final String producer;
   final String release_date;
+  final String url;
 
   Film(
       {required this.title,
@@ -17,7 +18,8 @@ class Film {
       required this.opening_crawl,
       required this.director,
       required this.producer,
-      required this.release_date});
+      required this.release_date,
+      required this.url});
 
   factory Film.fromJson(Map<String, dynamic> json) => _$FilmFromJson(json);
 

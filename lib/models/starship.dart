@@ -10,6 +10,7 @@ class Starship {
   final String crew;
   final String consumables;
   final String starship_class;
+  final String url;
 
   Starship(
       {required this.name,
@@ -17,7 +18,8 @@ class Starship {
       required this.manufacturer,
       required this.crew,
       required this.consumables,
-      required this.starship_class});
+      required this.starship_class,
+      required this.url});
 
   factory Starship.fromJson(Map<String, dynamic> json) => _$StarshipFromJson(json);
 

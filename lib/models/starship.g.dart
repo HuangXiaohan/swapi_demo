@@ -13,6 +13,7 @@ Starship _$StarshipFromJson(Map<String, dynamic> json) => Starship(
       crew: json['crew'] as String,
       consumables: json['consumables'] as String,
       starship_class: json['starship_class'] as String,
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$StarshipToJson(Starship instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$StarshipToJson(Starship instance) => <String, dynamic>{
       'crew': instance.crew,
       'consumables': instance.consumables,
       'starship_class': instance.starship_class,
+      'url': instance.url,
     };
