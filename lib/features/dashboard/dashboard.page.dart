@@ -66,20 +66,25 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
               child: FutureBuilder(
                   future: _categoryFuture,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                      final list = snapshot.data as List<Category>;
-                      return Column(
-                        children: [
-                          ...list
-                              .map((e) => AnimatedCategoryCard(
-                                    category: e,
-                                    index: list.indexOf(e),
-                                  ))
-                              .toList()
-                        ],
-                      );
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        final list = snapshot.data as List<Category>;
+                        return Column(
+                          children: [
+                            ...list
+                                .map((e) => AnimatedCategoryCard(
+                                      category: e,
+                                      index: list.indexOf(e),
+                                    ))
+                                .toList()
+                          ],
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
                     } else {
-                      return const SizedBox.shrink();
+                      return const SizedBox(
+                          height: 100, child: Center(child: CircularProgressIndicator(color: Colors.amber)));
                     }
                   }),
             )
