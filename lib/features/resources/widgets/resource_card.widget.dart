@@ -1,75 +1,84 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
+import 'package:swapi_demo/features/resources/widgets/card_template.dart';
+import 'package:swapi_demo/models/film.dart';
+import 'package:swapi_demo/models/people.dart';
+import 'package:swapi_demo/models/planet.dart';
+import 'package:swapi_demo/models/specie.dart';
+import 'package:swapi_demo/models/starship.dart';
+import 'package:swapi_demo/models/vehicle.dart';
 
 class ResourceCard extends StatelessWidget {
-  final Color color;
-  final String name;
-  final List<ResourceCardElement> elements;
+  final element;
 
-  const ResourceCard({required this.elements, required this.color, required this.name, Key? key}) : super(key: key);
+  const ResourceCard({required this.element, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        gradient: LinearGradient(
-                            colors: [color, color.withOpacity(0.1)],
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight)),
-                    child: _buildTitle()),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Text(name,
-                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
-                ),
-                InkWell(child: const Icon(Icons.favorite_outline_outlined, color: Colors.grey, size: 32), onTap: () {})
-              ],
-            ),
-            const SizedBox(height: 20),
-            ...elements.map((e) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(e.title),
-                      Flexible(child: Text(e.content, style: const TextStyle(fontStyle: FontStyle.italic)))
-                    ],
-                  ),
-                ))
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTitle() {
-    final splits = name.split(' ');
-    var title = '';
-    for (var s in splits) {
-      title += s[0].toUpperCase();
+    Map<dynamic, dynamic> map;
+    final List<ResourceCardElement> elements = [];
+    final String name;
+    final Color leadingColor;
+    switch (element.runtimeType) {
+      case People:
+        name = element.name;
+        leadingColor = const Color(0xFF87CEEB);
+        break;
+      case Planet:
+        name = element.name;
+        leadingColor = const Color(0xFFBC8F8F);
+        break;
+      case Film:
+        name = element.title;
+        leadingColor = const Color(0xFFF4A460);
+        break;
+      case Specie:
+        name = element.name;
+        leadingColor = const Color(0xFFF08080);
+        break;
+      case Starship:
+        name = element.name;
+        leadingColor = const Color(0xFF66CDAA);
+        break;
+      case Vehicle:
+        name = element.name;
+        leadingColor = const Color(0xFF9370DB);
+        break;
+      default:
+        name = element.name;
+        leadingColor = const Color(0xFF87CEEB);
     }
 
-    return Center(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15)));
+    map = element.toJson();
+    map.forEach((key, value) {
+      if (key != 'url') {
+        elements.add(ResourceCardElement(title: _getElementTitle(key), content: value.toString()));
+      }
+    });
+
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (localContext, state) {
+      return CardTemplate(
+          name: name,
+          color: leadingColor,
+          elements: elements,
+          isFavorite: isInFavorite(state.favoriteUrlList),
+          favoriteFunc: () {
+            localContext.read<FavoriteBloc>().add(AddFavoriteEvent(element));
+          });
+    });
   }
-}
 
-class ResourceCardElement {
-  final String title;
-  final String content;
+  String _getElementTitle(String title) {
+    return '${title[0].toUpperCase()}${title.substring(1)}'.replaceAll('_', ' ');
+  }
 
-  ResourceCardElement({required this.title, required this.content});
+  bool isInFavorite(List? favoriteList) {
+    if (favoriteList == null) {
+      return false;
+    } else {
+      var f = favoriteList.where((e) => e.url == element.url);
+      return f.isNotEmpty;
+    }
+  }
 }
