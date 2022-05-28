@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'dashboard/dashboard.page.dart';
+import 'dashboard.page.dart';
 
 class WelcomePage extends StatefulWidget {
   static const routeName = 'welcome';

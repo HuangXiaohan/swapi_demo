@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
                         category.key.toUpperCase(),
                         style: TextStyle(
                             fontSize: 28,
-                            color: Colors.black.withOpacity(0.75),
+                            color: Colors.black.withOpacity(0.7),
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
                             letterSpacing: 1.5),

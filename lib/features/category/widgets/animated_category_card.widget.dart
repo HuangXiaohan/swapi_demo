@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:swapi_demo/features/dashboard/widgets/category_card.widget.dart';
+import 'package:swapi_demo/features/category/widgets/category_card.widget.dart';
 import 'package:swapi_demo/models/category.dart';
 
 class AnimatedCategoryCard extends StatefulWidget {

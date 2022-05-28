@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
 import 'package:swapi_demo/features/resources/resource_list.page.dart';
 import 'package:swapi_demo/features/welcome.page.dart';
 import 'package:swapi_demo/models/category.dart';
 
-import 'features/dashboard/dashboard.page.dart';
+import 'features/dashboard.page.dart';
 
 class AppNavigator extends StatelessWidget {
   const AppNavigator({Key? key}) : super(key: key);
@@ -14,27 +16,30 @@ class AppNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-        initialRoute: WelcomePage.routeName,
-        onGenerateRoute: (RouteSettings settings) {
-          Widget page;
-          switch (settings.name) {
-            case WelcomePage.routeName:
-              page = const WelcomePage();
-              break;
-            case DashboardPage.routeName:
-              page = const DashboardPage();
-              break;
-            case ResourceListPage.routeName:
-              page = ResourceListPage(category: settings.arguments as Category);
-              break;
-            default:
-              logger.e('Invalid route in navigator: ${settings.name ?? ''}');
-              throw Exception('Invalid route in navigator');
-          }
+    return BlocProvider<FavoriteBloc>(
+      create: (_) => FavoriteBloc(),
+      child: Navigator(
+          initialRoute: WelcomePage.routeName,
+          onGenerateRoute: (RouteSettings settings) {
+            Widget page;
+            switch (settings.name) {
+              case WelcomePage.routeName:
+                page = const WelcomePage();
+                break;
+              case DashboardPage.routeName:
+                page = const DashboardPage();
+                break;
+              case ResourceListPage.routeName:
+                page = ResourceListPage(category: settings.arguments as Category);
+                break;
+              default:
+                logger.e('Invalid route in navigator: ${settings.name ?? ''}');
+                throw Exception('Invalid route in navigator');
+            }
 
-          return buildTransition(page, settings);
-        });
+            return buildTransition(page, settings);
+          }),
+    );
   }
 
   PageRoute buildTransition(Widget page, RouteSettings settings) {
