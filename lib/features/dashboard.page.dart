@@ -91,8 +91,10 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
     switch (_selectedIndex) {
       case 0:
         return const CategoryPage();
-      default:
+      case 1:
         return const FavoritePage();
+      default:
+        return const CategoryPage();
     }
   }
 
