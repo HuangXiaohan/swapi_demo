@@ -1,16 +1,14 @@
 # swapi_demo
 
-A new Flutter project.
+C'est un flutter projet sur swapi api. Il fournit une liste de catégorie dans dashboard. Une liste de ressources sera affichée en cliquant dans chaque catégorie. Vous pouvez ajouter les éléments comme favori, et les trouver dans la liste de favoris.
 
-## Getting Started
+Avant de lancer le projet, exécutez cette commande pour installer les librairie:
+```
+flutter pub get
+```
 
-This project is a starting point for a Flutter application.
+Lancer le projet:
+```
+flutter run
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
