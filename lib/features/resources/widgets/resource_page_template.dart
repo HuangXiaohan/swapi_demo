@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:swapi_demo/models/category.dart';
 
-class ResourcePageTemplate extends StatelessWidget {
+class ResourcePageTemplate extends StatefulWidget {
   final Category category;
   final Widget body;
 
   const ResourcePageTemplate({required this.category, required this.body, Key? key}) : super(key: key);
 
   @override
+  State<ResourcePageTemplate> createState() => _ResourcePageTemplateState();
+}
+
+class _ResourcePageTemplateState extends State<ResourcePageTemplate> with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  late final Animation colorTween;
+  late final ScrollController scrollController;
+
+  ValueNotifier<bool> isExpanded = ValueNotifier(true);
+
+  @override
+  void initState() {
+    super.initState();
+
+    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    colorTween = ColorTween(begin: Colors.white, end: Colors.black).animate(animationController);
+
+    scrollController = ScrollController(initialScrollOffset: 0, keepScrollOffset: false);
+
+    scrollController.addListener(() {
+      isExpanded.value = scrollController.offset < 100;
+    });
+
+    isExpanded.addListener(() {
+      isExpanded.value ? animationController.reverse() : animationController.forward();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverAppBar(
             title: _buildTitle(),
@@ -23,15 +53,19 @@ class ResourcePageTemplate extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(background: _buildHeaderImage()),
             leading: _buildLeading(context),
           ),
-          SliverList(delegate: SliverChildListDelegate([body]))
+          SliverList(delegate: SliverChildListDelegate([widget.body]))
         ],
       ),
     );
   }
 
   Widget _buildTitle() {
-    final title = '${category.key[0].toUpperCase()}${category.key.substring(1)} list';
-    return Text(title, style: const TextStyle(color: Colors.black));
+    final title = '${widget.category.key[0].toUpperCase()}${widget.category.key.substring(1)} list';
+    return AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return Text(title, style: TextStyle(color: colorTween.value));
+        });
   }
 
   Widget _buildHeaderImage() {
@@ -50,7 +84,7 @@ class ResourcePageTemplate extends StatelessWidget {
         },
         blendMode: BlendMode.dstIn,
         child: Image.asset(
-          category.getImage(),
+          widget.category.getImage(),
           height: 100,
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,
@@ -58,9 +92,16 @@ class ResourcePageTemplate extends StatelessWidget {
   }
 
   Widget _buildLeading(BuildContext context) {
-    return IconButton(
-        alignment: Alignment.centerLeft,
-        icon: const Icon(Icons.arrow_back_ios, size: 32, color: Colors.black),
-        onPressed: Navigator.of(context).pop);
+    return AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: IconButton(
+                alignment: Alignment.centerLeft,
+                icon: Icon(Icons.arrow_back_ios, size: 32, color: colorTween.value),
+                onPressed: Navigator.of(context).pop),
+          );
+        });
   }
 }
