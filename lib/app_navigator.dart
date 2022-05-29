@@ -16,29 +16,32 @@ class AppNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FavoriteBloc>(
-      create: (_) => FavoriteBloc(),
-      child: Navigator(
-          initialRoute: WelcomePage.routeName,
-          onGenerateRoute: (RouteSettings settings) {
-            Widget page;
-            switch (settings.name) {
-              case WelcomePage.routeName:
-                page = const WelcomePage();
-                break;
-              case DashboardPage.routeName:
-                page = const DashboardPage();
-                break;
-              case ResourceListPage.routeName:
-                page = ResourceListPage(category: settings.arguments as Category);
-                break;
-              default:
-                logger.e('Invalid route in navigator: ${settings.name ?? ''}');
-                throw Exception('Invalid route in navigator');
-            }
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: BlocProvider<FavoriteBloc>(
+        create: (_) => FavoriteBloc(),
+        child: Navigator(
+            initialRoute: WelcomePage.routeName,
+            onGenerateRoute: (RouteSettings settings) {
+              Widget page;
+              switch (settings.name) {
+                case WelcomePage.routeName:
+                  page = const WelcomePage();
+                  break;
+                case DashboardPage.routeName:
+                  page = const DashboardPage();
+                  break;
+                case ResourceListPage.routeName:
+                  page = ResourceListPage(category: settings.arguments as Category);
+                  break;
+                default:
+                  logger.e('Invalid route in navigator: ${settings.name ?? ''}');
+                  throw Exception('Invalid route in navigator');
+              }
 
-            return buildTransition(page, settings);
-          }),
+              return buildTransition(page, settings);
+            }),
+      ),
     );
   }
 
