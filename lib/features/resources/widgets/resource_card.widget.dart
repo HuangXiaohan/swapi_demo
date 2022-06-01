@@ -63,9 +63,8 @@ class ResourceCard extends StatelessWidget {
           color: leadingColor,
           elements: elements,
           isFavorite: isInFavorite(state.favoriteUrlList),
-          favoriteFunc: () {
-            localContext.read<FavoriteBloc>().add(AddFavoriteEvent(element));
-          });
+          addFavoriteFunc: () => localContext.read<FavoriteBloc>().add(AddFavoriteEvent(element)),
+          removeFavoriteFunc: () => localContext.read<FavoriteBloc>().add(RemoveFavoriteEvent(element)));
     });
   }
 

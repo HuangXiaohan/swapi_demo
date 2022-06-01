@@ -4,14 +4,16 @@ class CardTemplate extends StatelessWidget {
   final Color color;
   final String name;
   final List<ResourceCardElement> elements;
-  final VoidCallback? favoriteFunc;
+  final VoidCallback? addFavoriteFunc;
+  final VoidCallback? removeFavoriteFunc;
   final bool isFavorite;
 
   const CardTemplate(
       {required this.elements,
       required this.color,
       required this.name,
-      this.favoriteFunc,
+      this.addFavoriteFunc,
+      this.removeFavoriteFunc,
       Key? key,
       this.isFavorite = false})
       : super(key: key);
@@ -44,12 +46,14 @@ class CardTemplate extends StatelessWidget {
                   child: Text(name,
                       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
                 ),
-                if (favoriteFunc != null)
+                if (addFavoriteFunc != null)
                   InkWell(
-                      child: isFavorite
-                          ? const Icon(Icons.favorite, color: Colors.red, size: 32)
-                          : const Icon(Icons.favorite_outline_outlined, color: Colors.grey, size: 32),
-                      onTap: isFavorite ? null : favoriteFunc)
+                    child: isFavorite
+                        ? const Icon(Icons.favorite, color: Colors.red, size: 32)
+                        : const Icon(Icons.favorite_outline_outlined, color: Colors.grey, size: 32),
+                    onTap: isFavorite ? null : addFavoriteFunc,
+                    onLongPress: isFavorite ? removeFavoriteFunc : null,
+                  )
               ],
             ),
             const SizedBox(height: 20),
