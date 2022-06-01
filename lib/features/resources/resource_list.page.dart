@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:swapi_demo/features/resources/widgets/resource_card.widget.dart';
 import 'package:swapi_demo/features/resources/widgets/resource_page_template.dart';
+import 'package:swapi_demo/features/resources/widgets/search_bar.widget.dart';
 import 'package:swapi_demo/models/category.dart';
+import 'package:swapi_demo/models/film.dart';
 import 'package:swapi_demo/services/film_service.dart';
 import 'package:swapi_demo/services/people_service.dart';
 import 'package:swapi_demo/services/planet_service.dart';
@@ -30,9 +32,18 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
   final starshipService = GetIt.I<StarshipService>();
   final vehicleService = GetIt.I<VehicleService>();
 
+  late final TextEditingController textEditingController;
+
   @override
   void initState() {
     _initializeData();
+
+    textEditingController = TextEditingController();
+
+    textEditingController.addListener(() {
+      setState(() {});
+    });
+
     super.initState();
   }
 
@@ -45,15 +56,15 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                List<T> list = snapshot.data as List<T>;
+                List<dynamic> list = snapshot.data as List<dynamic>;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      ...list
-                          .map((e) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3), child: ResourceCard(element: e)))
-                          .toList()
+                      const SizedBox(height: 20),
+                      SearchBar(textEditingController: textEditingController),
+                      const SizedBox(height: 20),
+                      ..._getList(_onSearch((list)))
                     ],
                   ),
                 );
@@ -66,6 +77,12 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
             }
           },
         ));
+  }
+
+  List<Widget> _getList(List<dynamic> list) {
+    return list
+        .map((e) => Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: ResourceCard(element: e)))
+        .toList();
   }
 
   void _initializeData() {
@@ -88,6 +105,21 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
       case 'vehicles':
         future = vehicleService.getVehicle();
         break;
+    }
+  }
+
+  List<dynamic> _onSearch(List<dynamic> list) {
+    var newList = list
+        .where((e) => _getName(e).toLowerCase().indexOf(textEditingController.text.trim().toLowerCase()) == 0)
+        .toList();
+    return newList;
+  }
+
+  String _getName(dynamic element) {
+    if (element.runtimeType == Film) {
+      return element.title;
+    } else {
+      return element.name;
     }
   }
 }
