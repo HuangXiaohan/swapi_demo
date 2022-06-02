@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapi_demo/features/resources/resource_list.page.dart';
+import 'package:swapi_demo/features/resources/pages/resource_list.page.dart';
 import 'package:swapi_demo/models/category.dart';
 
 class CategoryCard extends StatelessWidget {

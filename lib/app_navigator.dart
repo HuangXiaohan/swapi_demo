@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
-import 'package:swapi_demo/features/resources/resource_list.page.dart';
+import 'package:swapi_demo/features/resources/pages/resource_list.page.dart';
 import 'package:swapi_demo/features/welcome.page.dart';
 import 'package:swapi_demo/models/category.dart';
 

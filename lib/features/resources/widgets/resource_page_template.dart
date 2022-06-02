@@ -4,8 +4,12 @@ import 'package:swapi_demo/models/category.dart';
 class ResourcePageTemplate extends StatefulWidget {
   final Category category;
   final Widget body;
+  final VoidCallback loadNextFunc;
+  final bool isLoadingData;
 
-  const ResourcePageTemplate({required this.category, required this.body, Key? key}) : super(key: key);
+  const ResourcePageTemplate(
+      {required this.category, required this.body, required this.loadNextFunc, required this.isLoadingData, Key? key})
+      : super(key: key);
 
   @override
   State<ResourcePageTemplate> createState() => _ResourcePageTemplateState();
@@ -29,6 +33,11 @@ class _ResourcePageTemplateState extends State<ResourcePageTemplate> with Single
 
     scrollController.addListener(() {
       isExpanded.value = scrollController.offset < 100;
+
+      // lazy loading if has next
+      if (scrollController.position.extentAfter < 10 && !widget.isLoadingData) {
+        widget.loadNextFunc();
+      }
     });
 
     isExpanded.addListener(() {
