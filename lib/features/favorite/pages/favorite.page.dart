@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
 import 'package:swapi_demo/features/resources/widgets/resource_card.widget.dart';
@@ -9,7 +10,7 @@ class FavoritePage<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (localContext, state) {
-      return state.favoriteUrlList != null
+      return state.favoriteUrlList?.isNotEmpty ?? false
           ? Column(
               children: [
                 ...state.favoriteUrlList!
@@ -18,7 +19,11 @@ class FavoritePage<T> extends StatelessWidget {
                     .toList()
               ],
             )
-          : const SizedBox.shrink();
+          : const Text(
+              'No favorites',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            );
     });
   }
 }

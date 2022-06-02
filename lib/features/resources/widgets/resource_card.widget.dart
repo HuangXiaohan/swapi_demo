@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
 import 'package:swapi_demo/features/resources/widgets/card_template.dart';
@@ -64,7 +65,7 @@ class ResourceCard extends StatelessWidget {
           elements: elements,
           isFavorite: isInFavorite(state.favoriteUrlList),
           addFavoriteFunc: () => localContext.read<FavoriteBloc>().add(AddFavoriteEvent(element)),
-          removeFavoriteFunc: () => localContext.read<FavoriteBloc>().add(RemoveFavoriteEvent(element)));
+          removeFavoriteFunc: () => _showRemoveDialog(context, localContext));
     });
   }
 
@@ -79,5 +80,33 @@ class ResourceCard extends StatelessWidget {
       var f = favoriteList.where((e) => e.url == element.url);
       return f.isNotEmpty;
     }
+  }
+
+  Future<void> _showRemoveDialog(BuildContext context, BuildContext localContext) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Remove favorite'),
+          content: const Text('Are you sure to remove the favorite?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Confirm'),
+              onPressed: () {
+                localContext.read<FavoriteBloc>().add(RemoveFavoriteEvent(element));
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

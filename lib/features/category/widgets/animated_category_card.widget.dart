@@ -34,6 +34,12 @@ class _AnimatedCategoryCardState extends State<AnimatedCategoryCard> with Ticker
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SlideTransition(position: _animation, child: CategoryCard(category: widget.category));
   }
