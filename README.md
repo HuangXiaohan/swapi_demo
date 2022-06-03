@@ -15,21 +15,22 @@ flutter run
 ### Functions V1
 
 - Liste de catégorie dans dashboard
-- En cliquant chaque catégorie, il affiche une liste de resource
+- En cliquant chaque catégorie, il affiche une liste de ressource
 - Vous pouvez ajouter les éléments comme favori, et les trouver dans la liste de favoris
 
 ### Functions V2
 
 - **Search bar** dans chaque page resource
-- Lazy loading de la liste de resource quand **glisser vers le bas**
-- Enlever les favorits:
-    - Dans la liste de resource: **LongPress** la coeur
-    - Dans la liste de favorits: **LongPress** la coeur / **glisser vers le gauche** et cliquer **Remove**
-- Mettre la favorit en haut: **glisser vers le gauche** et cliquer **Top**
+- Lazy loading de la liste de ressource quand **glisser vers le bas**
+- Enlever les favoris:
+    - Dans la liste de ressource: **LongPress** la coeur
+    - Dans la liste de favoris: **LongPress** la coeur / **glisser vers le gauche** et cliquer **Remove**
+- Mettre la favori en haut: **glisser vers le gauche** et cliquer **Top**
 
 ### Performance amélioré
 
 - L'animation de dashboard n'est chargée que la première fois
+
     
     
 
