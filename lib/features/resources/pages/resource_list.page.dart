@@ -73,7 +73,7 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
             const SizedBox(height: 20),
             SearchBar(textEditingController: textEditingController),
             const SizedBox(height: 20),
-            ..._getList(_onSearch((list))),
+            ..._getList(list),
             const SizedBox(height: 20),
             state.next == null
                 ? const Text('No more data', textAlign: TextAlign.center, style: TextStyle(color: Colors.grey))
@@ -92,7 +92,9 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
 
   List<Widget> _getList(List<dynamic> list) {
     return list
-        .map((e) => Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: ResourceCard(element: e)))
+        .map((e) => Visibility(
+            visible: _getName(e).toLowerCase().indexOf(textEditingController.text.trim().toLowerCase()) == 0,
+            child: Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: ResourceCard(element: e))))
         .toList();
   }
 
@@ -117,13 +119,6 @@ class _ResourceListPageState<T> extends State<ResourceListPage> {
         initFuture = vehicleService.getVehicle();
         break;
     }
-  }
-
-  List<dynamic> _onSearch(List<dynamic> list) {
-    var newList = list
-        .where((e) => _getName(e).toLowerCase().indexOf(textEditingController.text.trim().toLowerCase()) == 0)
-        .toList();
-    return newList;
   }
 
   String _getName(dynamic element) {
