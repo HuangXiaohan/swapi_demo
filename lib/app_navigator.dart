@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:swapi_demo/features/category/bloc/category_bloc.dart';
 import 'package:swapi_demo/features/favorite/bloc/favorite_bloc.dart';
 import 'package:swapi_demo/features/resources/pages/resource_list.page.dart';
 import 'package:swapi_demo/features/welcome.page.dart';
@@ -18,8 +19,11 @@ class AppNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: BlocProvider<FavoriteBloc>(
-        create: (_) => FavoriteBloc(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<FavoriteBloc>(create: (_) => FavoriteBloc()),
+          BlocProvider<CategoryBloc>(create: (_) => CategoryBloc()),
+        ],
         child: Navigator(
             initialRoute: WelcomePage.routeName,
             onGenerateRoute: (RouteSettings settings) {

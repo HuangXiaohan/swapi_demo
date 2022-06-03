@@ -12,7 +12,7 @@ class RootService {
           final list = response.data;
           final categoryList = <Category>[];
           for (var key in list.keys) {
-            categoryList.add(Category(key: key, value: list[key]));
+            categoryList.add(Category(key: key, value: list[key], image: getImage(key)));
           }
           return categoryList;
         } else {
@@ -22,5 +22,9 @@ class RootService {
     } catch (e) {
       throw ('Error occurred: $e');
     }
+  }
+
+  String getImage(String key) {
+    return 'assets/images/category_$key.jpg';
   }
 }

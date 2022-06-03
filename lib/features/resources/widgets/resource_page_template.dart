@@ -93,7 +93,7 @@ class _ResourcePageTemplateState extends State<ResourcePageTemplate> with Single
         },
         blendMode: BlendMode.dstIn,
         child: Image.asset(
-          widget.category.getImage(),
+          widget.category.image,
           height: 100,
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,

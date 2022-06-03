@@ -6,14 +6,11 @@ part 'category.g.dart';
 class Category {
   final String key;
   final String value;
+  final String image;
 
-  Category({required this.key, required this.value});
+  Category({required this.key, required this.value, required this.image});
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
-
-  String getImage() {
-    return 'assets/images/category_$key.jpg';
-  }
 }

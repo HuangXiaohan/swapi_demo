@@ -19,7 +19,7 @@ class CategoryCard extends StatelessWidget {
               aspectRatio: 5 / 2,
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Image.asset(category.getImage(), fit: BoxFit.cover)),
+                  child: Image.asset(category.image, fit: BoxFit.cover)),
             ),
             Positioned(
                 left: 0,

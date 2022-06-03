@@ -16,7 +16,7 @@ class _AnimatedCategoryCardState extends State<AnimatedCategoryCard> with Ticker
   late final AnimationController _controller;
   late final Animation<Offset> _animation;
 
-  double get offset => widget.index.isEven ? 1 : -1;
+  double get offset => widget.index.isEven ? 2 : -2;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _AnimatedCategoryCardState extends State<AnimatedCategoryCard> with Ticker
     _animation = Tween<Offset>(begin: Offset(offset, 0), end: Offset.zero)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    Future.delayed(Duration(milliseconds: widget.index * 300 + 100)).then((value) => _controller.forward());
+    Future.delayed(Duration(milliseconds: widget.index * 300)).then((value) => _controller.forward());
 
     super.initState();
   }
