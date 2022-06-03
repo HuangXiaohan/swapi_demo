@@ -81,7 +81,14 @@ class _ResourceCardState extends State<ResourceCard> {
                       child: Row(
                         children: [
                           InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                localContext.read<FavoriteBloc>().add(PutAtTopFavoriteEvent(widget.element));
+                                _scrollController.animateTo(0,
+                                    duration: const Duration(milliseconds: 100), curve: Curves.linear);
+                                setState(() {
+                                  _opacity = 0;
+                                });
+                              },
                               child: Container(
                                   width: MediaQuery.of(context).size.width / 4,
                                   color: const Color(0xFFF4A460),

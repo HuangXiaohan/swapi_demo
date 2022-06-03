@@ -14,30 +14,28 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteBloc, FavoriteState>(
-        buildWhen: (previous, current) => previous.favoriteList != current.favoriteList,
-        builder: (localContext, state) {
-          if (state.favoriteList?.isNotEmpty ?? false) {
-            return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ListView.builder(
-                    key: Key(state.favoriteList!.length.toString()),
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.favoriteList!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 3),
-                          child: ResourceCard(element: state.favoriteList![index], canScroll: true));
-                    }));
-          } else {
-            return const Text(
-              'No favorites',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey),
-            );
-          }
-        });
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (localContext, state) {
+      if (state.favoriteList?.isNotEmpty ?? false) {
+        return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ListView.builder(
+                key: Key(state.favoriteList!.length.toString() + state.favoriteList!.first.name),
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: state.favoriteList!.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: ResourceCard(element: state.favoriteList![index], canScroll: true));
+                }));
+      } else {
+        return const Text(
+          'No favorites',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.grey),
+        );
+      }
+    });
   }
 }

@@ -11,3 +11,8 @@ class RemoveFavoriteEvent extends FavoriteEvent {
   final dynamic element;
   RemoveFavoriteEvent(this.element);
 }
+
+class PutAtTopFavoriteEvent extends FavoriteEvent {
+  final dynamic element;
+  PutAtTopFavoriteEvent(this.element);
+}

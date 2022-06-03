@@ -7,6 +7,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FavoriteBloc() : super(FavoriteState()) {
     on<AddFavoriteEvent>(_addFavorite);
     on<RemoveFavoriteEvent>(_removeFavorite);
+    on<PutAtTopFavoriteEvent>(_putAtTopFavorite);
   }
 
   void _addFavorite(AddFavoriteEvent event, Emitter emitter) {
@@ -18,6 +19,13 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   void _removeFavorite(RemoveFavoriteEvent event, Emitter emitter) {
     var newList = List.from(state.favoriteList!);
     newList.removeWhere((element) => element.url == event.element.url);
+    emitter(state.copyWith(favoriteList: newList));
+  }
+
+  void _putAtTopFavorite(PutAtTopFavoriteEvent event, Emitter emitter) {
+    var newList = List.from(state.favoriteList!);
+    newList.removeWhere((element) => element.url == event.element.url);
+    newList.insert(0, event.element);
     emitter(state.copyWith(favoriteList: newList));
   }
 }
