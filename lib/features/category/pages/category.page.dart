@@ -31,15 +31,18 @@ class _CategoryPageState extends State<CategoryPage> {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               final list = snapshot.data as List<Category>;
-              return Column(
-                children: [
-                  ...list
-                      .map((e) => AnimatedCategoryCard(
-                            category: e,
-                            index: list.indexOf(e),
-                          ))
-                      .toList()
-                ],
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    ...list
+                        .map((e) => AnimatedCategoryCard(
+                              category: e,
+                              index: list.indexOf(e),
+                            ))
+                        .toList()
+                  ],
+                ),
               );
             } else {
               return const SizedBox.shrink();

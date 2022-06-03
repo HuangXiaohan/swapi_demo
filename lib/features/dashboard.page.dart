@@ -56,9 +56,7 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
               ),
             ),
           ),
-          SliverList(
-              delegate: SliverChildListDelegate(
-                  [Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: _buildBody())]))
+          SliverList(delegate: SliverChildListDelegate([_buildBody()]))
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

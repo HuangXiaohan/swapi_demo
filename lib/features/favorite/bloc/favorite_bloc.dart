@@ -10,14 +10,14 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   }
 
   void _addFavorite(AddFavoriteEvent event, Emitter emitter) {
-    var newList = state.favoriteUrlList ?? [];
+    var newList = state.favoriteList ?? [];
     newList.add(event.element);
-    emitter(state.copyWith(favoriteUrlList: newList));
+    emitter(state.copyWith(favoriteList: newList));
   }
 
   void _removeFavorite(RemoveFavoriteEvent event, Emitter emitter) {
-    var newList = state.favoriteUrlList;
-    newList!.removeWhere((element) => element.url == event.element.url);
-    emitter(state.copyWith(favoriteUrlList: newList));
+    var newList = List.from(state.favoriteList!);
+    newList.removeWhere((element) => element.url == event.element.url);
+    emitter(state.copyWith(favoriteList: newList));
   }
 }

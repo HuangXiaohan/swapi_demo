@@ -1,11 +1,11 @@
 part of 'favorite_bloc.dart';
 
 class FavoriteState {
-  List? favoriteUrlList;
+  List? favoriteList;
 
-  FavoriteState({this.favoriteUrlList});
+  FavoriteState({this.favoriteList});
 
-  FavoriteState copyWith({List? favoriteUrlList}) {
-    return FavoriteState(favoriteUrlList: favoriteUrlList ?? this.favoriteUrlList);
+  FavoriteState copyWith({List? favoriteList}) {
+    return FavoriteState(favoriteList: favoriteList ?? this.favoriteList);
   }
 }
